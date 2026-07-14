@@ -1,0 +1,15 @@
+# Node / API
+api/node_modules/
+api/gastos.db
+api/gastos.db-*
+api/.env
+
+# Android
+android/.gradle/
+android/.idea/
+android/local.properties
+android/app/build/
+android/build/
+android/*/build/
+android/.kotlin/
+*.iml
