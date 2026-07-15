@@ -78,9 +78,7 @@ Acelerómetro (`ShakeDetector.kt`): al agitar el teléfono en el Dashboard, se
 abre automáticamente la pantalla de "Agregar movimiento".
 
 ## Capturas de pantalla
-> Reemplaza cada línea de abajo subiendo tu imagen a `screenshots/` y
-> ajustando el nombre del archivo (o arrastra la imagen directo en el editor
-> de este README en GitHub para que te genere el link automáticamente).
+
 
 | Login | Registro |
 |---|---|
