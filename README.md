@@ -1,6 +1,6 @@
 # WalletTrack — Gestor de Gastos Personales
 
-Proyecto final de Ingeniería de Software.
+Proyecto final de Desarrollo Móvil
 
 ## Integrantes
 
