@@ -9,9 +9,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.gestorgastos.app.data.network.RetrofitClient
 import com.gestorgastos.app.data.network.TokenManager
 import com.gestorgastos.app.data.repository.AuthRepository
@@ -29,6 +31,8 @@ object Routes {
     const val REGISTER = "register"
     const val DASHBOARD = "dashboard"
     const val ADD_EXPENSE = "add_expense"
+    const val EDIT_EXPENSE = "edit_expense/{id}"
+    fun editExpense(id: Int) = "edit_expense/$id"
 }
 
 class MainActivity : ComponentActivity() {
@@ -69,7 +73,7 @@ class MainActivity : ComponentActivity() {
                         startDestination = startDestination,
                         authViewModel = authViewModel,
                         expenseViewModel = expenseViewModel,
-                        userName = tokenManager.getUserName()
+                        tokenManager = tokenManager
                     )
                 }
             }
@@ -83,7 +87,7 @@ fun AppNavHost(
     startDestination: String,
     authViewModel: AuthViewModel,
     expenseViewModel: ExpenseViewModel,
-    userName: String?
+    tokenManager: TokenManager
 ) {
     NavHost(navController = navController, startDestination = startDestination) {
 
@@ -108,10 +112,13 @@ fun AppNavHost(
         }
 
         composable(Routes.DASHBOARD) {
+            // Se lee el nombre aquí (no al arrancar la app), así ya está guardado
+            // tras el login y el saludo muestra el nombre real del usuario.
             DashboardScreen(
                 expenseViewModel = expenseViewModel,
-                userName = userName,
+                userName = tokenManager.getUserName(),
                 onAddExpense = { navController.navigate(Routes.ADD_EXPENSE) },
+                onEditExpense = { id -> navController.navigate(Routes.editExpense(id)) },
                 onLogout = {
                     authViewModel.logout()
                     navController.navigate(Routes.LOGIN) {
@@ -126,6 +133,33 @@ fun AppNavHost(
                 expenseViewModel = expenseViewModel,
                 onSaved = { navController.popBackStack() }
             )
+        }
+
+        composable(
+            route = Routes.EDIT_EXPENSE,
+            arguments = listOf(navArgument("id") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments?.getInt("id")
+            // Se captura el movimiento UNA sola vez. Si observáramos la lista, al
+            // borrar/editar el elemento desaparecería y se dispararía un segundo
+            // popBackStack que vaciaba la navegación (pantalla en blanco).
+            val expense = remember(id) {
+                id?.let { targetId ->
+                    expenseViewModel.uiState.value.expenses.find { it.id == targetId }
+                }
+            }
+
+            if (expense != null) {
+                AddExpenseScreen(
+                    expenseViewModel = expenseViewModel,
+                    editing = expense,
+                    onSaved = { navController.popBackStack() },
+                    onDeleted = { navController.popBackStack() }
+                )
+            } else {
+                // Si no se encuentra el movimiento (p. ej. tras recargar), volvemos.
+                LaunchedEffect(Unit) { navController.popBackStack() }
+            }
         }
     }
 }

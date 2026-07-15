@@ -53,6 +53,21 @@ class ExpenseViewModel(private val repository: ExpenseRepository) : ViewModel() 
         }
     }
 
+    fun updateExpense(
+        id: Int,
+        category: String,
+        amount: Double,
+        description: String,
+        type: String,
+        date: String
+    ) {
+        viewModelScope.launch {
+            repository.updateExpense(id, ExpenseRequest(category, amount, description, type, date))
+                .onSuccess { loadDashboard() }
+                .onFailure { _uiState.value = _uiState.value.copy(error = it.message) }
+        }
+    }
+
     fun deleteExpense(id: Int) {
         viewModelScope.launch {
             repository.deleteExpense(id)

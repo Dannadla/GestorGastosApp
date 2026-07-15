@@ -1,22 +1,24 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 android {
     namespace = "com.gestorgastos.app"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.gestorgastos.app"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
-        // Cambia esta IP/host por la de tu API desplegada (Render/Railway)
-        // o la IP local de tu equipo si pruebas en la misma red / hotspot.
-        buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:3000/\"")
+        // IP de tu PC en la red local (móvil y PC en la misma WiFi/red).
+        // Si cambias de red o tu PC recibe otra IP, actualiza este valor.
+        // Emulador: http://10.0.2.2:3000/ ; producción: URL de la API desplegada.
+        buildConfigField("String", "BASE_URL", "\"http://192.168.0.9:3000/\"")
     }
 
     buildTypes {
@@ -28,10 +30,6 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.14"
     }
 
     compileOptions {

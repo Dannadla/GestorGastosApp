@@ -13,3 +13,8 @@ android/build/
 android/*/build/
 android/.kotlin/
 *.iml
+
+# IDE / herramientas (no necesarios para el software)
+.idea/
+.claude/
+.vscode/

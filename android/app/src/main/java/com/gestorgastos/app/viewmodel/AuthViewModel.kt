@@ -24,7 +24,9 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
     fun login(email: String, password: String) {
         viewModelScope.launch {
             _uiState.value = AuthUiState.Loading
-            repository.login(email, password)
+            // trim() elimina espacios y saltos de línea al inicio/fin (p. ej. si el
+            // teclado o un pegado dejó un Enter). La contraseña se envía tal cual.
+            repository.login(email.trim(), password)
                 .onSuccess { _uiState.value = AuthUiState.LoginSuccess(it) }
                 .onFailure { _uiState.value = AuthUiState.Error(it.message ?: "Error de login") }
         }
@@ -33,7 +35,9 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
     fun register(name: String, email: String, password: String) {
         viewModelScope.launch {
             _uiState.value = AuthUiState.Loading
-            repository.register(name, email, password)
+            // trim() evita guardar el salto de línea (Enter) o espacios sobrantes
+            // en el nombre y el correo.
+            repository.register(name.trim(), email.trim(), password)
                 .onSuccess { _uiState.value = AuthUiState.RegisterSuccess(it) }
                 .onFailure { _uiState.value = AuthUiState.Error(it.message ?: "Error al registrar") }
         }
