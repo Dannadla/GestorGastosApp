@@ -18,10 +18,13 @@ android {
         // IP de tu PC en la red local (móvil y PC en la misma WiFi/red).
         // Si cambias de red o tu PC recibe otra IP, actualiza este valor.
         // Emulador: http://10.0.2.2:3000/ ; producción: URL de la API desplegada.
-        buildConfigField("String", "BASE_URL", "\"http://192.168.0.9:3000/\"")
+        buildConfigField("String", "BASE_URL", "\"http://localhost:3000/\"")
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix = ".debug"
+        }
         release {
             isMinifyEnabled = false
         }
