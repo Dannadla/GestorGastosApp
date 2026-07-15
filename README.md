@@ -22,8 +22,7 @@ acelerómetro (shake para agregar un gasto rápido).
 ```
 GestorGastosApp/
 ├── android/   -> Proyecto de Android Studio (Kotlin, Compose, Retrofit)
-├── api/       -> API REST (Node.js + Express + JWT + SQLite)
-└── docs/      -> Plan del proyecto (PROJECT_PLAN.md)
+└── api/       -> API REST (Node.js + Express + JWT + SQLite)
 ```
 
 ## Cómo correr el API
@@ -50,5 +49,22 @@ Endpoints principales: `/api/auth/register`, `/api/auth/login`,
 Acelerómetro (`ShakeDetector.kt`): al agitar el teléfono en el Dashboard, se
 abre automáticamente la pantalla de "Agregar gasto".
 
-Ver `docs/PROJECT_PLAN.md` para el plan de proyecto completo (objetivo, caso
-de negocio, arquitectura, base de datos, cronograma y riesgos).
+## Capturas de pantalla
+> Reemplaza cada línea de abajo subiendo tu imagen a `screenshots/` y
+> ajustando el nombre del archivo (o arrastra la imagen directo en el editor
+> de este README en GitHub para que te genere el link automáticamente).
+
+| Login | Registro |
+|---|---|
+| ![Login](screenshots/login.png) | ![Registro](screenshots/registro.png) |
+
+| Dashboard | Agregar gasto |
+|---|---|
+| ![Dashboard](screenshots/dashboard.png) | ![Agregar gasto](screenshots/agregar_gasto.png) |
+
+## Video demo
+[Ver demo en video](screenshots/demo.mp4) *(sube el archivo a `screenshots/` o pega aquí el link de YouTube/Drive)*
+
+Ver el documento **WalletTrack_Plan_de_Proyecto.docx** para el plan de proyecto
+completo (objetivo, caso de negocio, arquitectura, base de datos, cronograma,
+riesgos y anexo técnico).
