@@ -90,8 +90,6 @@ abre automáticamente la pantalla de "Agregar movimiento".
 |---|---|
 | ![Dashboard](screenshots/dashboard.png) | ![Agregar gasto](screenshots/agregar_gasto.png) |
 
-## Video demo
-[Ver demo en video](screenshots/demo.mp4) *(sube el archivo a `screenshots/` o pega aquí el link de YouTube/Drive)*
 
 Ver el documento **WalletTrack_Plan_de_Proyecto.docx** para el plan de proyecto
 completo (objetivo, caso de negocio, arquitectura, base de datos, cronograma,
